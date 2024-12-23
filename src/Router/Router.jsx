@@ -13,6 +13,7 @@ import ManageProducts from "../dashboard/seller/ManageProducts";
 import ManageOrders from "../dashboard/seller/ManageOrders";
 import AdminDashboard from "../dashboard/admin/AdminDashboard";
 import ViewProduct from "../page/ViewProduct";
+import Carts from "../page/Carts";
 
 // import Mains from "../Mains";
 // // import Home from "../Componets/home/Home";
@@ -77,7 +78,12 @@ export const router = createBrowserRouter([
     {
       path: "/dashboard/AdminDashboard",
       element: <AdminDashboard></AdminDashboard>
-    }
+    },
+    {
+      path: "/dashboard/carts",
+      element: <Carts></Carts>
+    },
+
 
    ]
 

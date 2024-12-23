@@ -1,17 +1,54 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import useAxiosPublic from "../hooks/useAxiosPublic"
+import axios from "axios"
+import { AuthContext } from "../AuthProvider/AuthProvider"
 
 
 const ViewProduct = () => {
+    const {user} = useContext(AuthContext)
+    
     const {id} = useParams()
     const [product, setProduct] = useState({})
     const axiosPublic = useAxiosPublic()
+    // const [message, setMessage] = useState("");
     useEffect(()=>{
       axiosPublic.get(`/products/${id}`)
       .then(data => setProduct(data.data))
     })
- 
+    const handleAddToCart = async () => {
+        const cartData = {
+          userEmail: user?.email, // Use optional chaining to avoid potential errors if `user` is undefined
+          name: product?.name, // Optional chaining for `product`
+          price: product?.price,
+          productImage: product?.productImage,
+        };
+      
+        // Validate that required fields are present before making the API call
+        if (!cartData.userEmail || !cartData.name || !cartData.price || !cartData.productImage) {
+          alert("All fields are required to add the product to the cart.");
+          return;
+        }
+      
+        try {
+          // Make the POST request
+          const response = await axios.post(
+            "http://localhost:5000/addToCart", // Corrected endpoint name to match the server-side changes
+            cartData,
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+      
+          // Show success message
+          alert(response.data.message);
+        } catch (error) {
+          console.error("Error:", error.response?.data?.message || "Something went wrong");
+          alert(error.response?.data?.message || "Failed to add product to cart. Please try again.");
+        }
+      };
   return (
     <div className="min-h-screen">
       <div className="bg-gray-100 p-10 text-black ">
@@ -23,7 +60,7 @@ const ViewProduct = () => {
                 </div>
                 <div className="flex -mx-2 mb-4">
                     <div className="w-1/2 px-2">
-                        <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
+                        <button onClick={handleAddToCart} className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
                     </div>
                     <div className="w-1/2 px-2">
                         <button className="w-full bg-gray-200  text-black dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">Add to Wishlist</button>
@@ -55,7 +92,11 @@ const ViewProduct = () => {
                     <p className="text-gray-600  text-sm mt-2">
                         {product.description}
                     </p>
+
+
+
                 </div>
+                {/* {message && <p className="text-green-500 mt-4">{message}</p>} */}
                 <div className=" p-6  text-center">
       <h2 className="text-xl font-semibold mb-6 text-gray-800">We Accept</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center">

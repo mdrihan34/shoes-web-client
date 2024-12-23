@@ -42,7 +42,7 @@ const Navbar = () => {
         <NavLink to="/about">About</NavLink>
       </li>
       <li className="font-bold md:mr-12">
-        <NavLink to="/wishlist">Wishlist</NavLink>
+        <NavLink to="/dashboard/carts">Carts</NavLink>
       </li>
       
       <li className="rounded-full font-bold md:mr-12 lg:hidden border-2 border-green-500 px-6 py-1 text-green-600 transition-colors hover:bg-green-500 hover:text-white">
