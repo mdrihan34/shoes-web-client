@@ -14,6 +14,11 @@ import ManageOrders from "../dashboard/seller/ManageOrders";
 import AdminDashboard from "../dashboard/admin/AdminDashboard";
 import ViewProduct from "../page/ViewProduct";
 import Carts from "../page/Carts";
+import Products from "../page/Products";
+import AboutSection from "../page/AboutSection";
+import PrivateRoute from "../AuthProvider/PrivateRoute";
+import ManageSellers from "../dashboard/admin/ManageSellers";
+import PendingApproval from "../page/PendingApproval";
 
 // import Mains from "../Mains";
 // // import Home from "../Componets/home/Home";
@@ -40,7 +45,20 @@ export const router = createBrowserRouter([
         element: <ViewProduct></ViewProduct>,
      
        
+      },
+      {
+        path: '/products',
+        element: <Products></Products>,
+     
+       
+      },
+      {
+        path: '/about',
+        element: <AboutSection></AboutSection>,
+     
+       
       }
+
     ]
   },
   {
@@ -48,7 +66,7 @@ export const router = createBrowserRouter([
     element: <Dashboard></Dashboard>,
    children: [
     {
-      path: "/dashboard/buyer",
+      path: "/dashboard/Buyer",
       element: <BuyerDash></BuyerDash>
     },
     {
@@ -60,7 +78,7 @@ export const router = createBrowserRouter([
       element: <Wishlist></Wishlist>
     },
     {
-      path: "/dashboard/seller",
+      path: "/dashboard/Seller",
       element: <SellerDash></SellerDash>
     },
     {
@@ -69,21 +87,33 @@ export const router = createBrowserRouter([
     },
     {
       path: "/dashboard/ManageProducts",
-      element: <ManageProducts></ManageProducts>
+
+      element: (
+        <PrivateRoute allowedRoles={["Seller"]}>
+          <ManageProducts />
+        </PrivateRoute>
+      ),
     },
     {
       path: "/dashboard/ManageOrders",
       element: <ManageOrders></ManageOrders>
     },
     {
-      path: "/dashboard/AdminDashboard",
+      path: "/dashboard/admin",
       element: <AdminDashboard></AdminDashboard>
+    },
+    {
+      path: "/dashboard/Pending",
+      element: <PendingApproval></PendingApproval>
     },
     {
       path: "/dashboard/carts",
       element: <Carts></Carts>
     },
-
+    {
+      path: "/dashboard/manageSeller",
+      element: <ManageSellers></ManageSellers>
+    },
 
    ]
 

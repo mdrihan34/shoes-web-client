@@ -102,7 +102,7 @@ const Register = () => {
                 className="block w-full rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none"
               >
                 <option value="">Select your role</option>
-                <option value="Seller">Seller</option>
+                <option value="Pending">Seller</option>
                 <option value="Buyer">Buyer</option>
               </select>
               {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}

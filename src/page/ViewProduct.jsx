@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom"
 import useAxiosPublic from "../hooks/useAxiosPublic"
 import axios from "axios"
 import { AuthContext } from "../AuthProvider/AuthProvider"
-
+import { ToastContainer, toast } from 'react-toastify';
 
 const ViewProduct = () => {
     const {user} = useContext(AuthContext)
-    
+    const notify = (message) => toast(message);
     const {id} = useParams()
     const [product, setProduct] = useState({})
     const axiosPublic = useAxiosPublic()
@@ -16,39 +16,42 @@ const ViewProduct = () => {
       axiosPublic.get(`/products/${id}`)
       .then(data => setProduct(data.data))
     })
+   
     const handleAddToCart = async () => {
-        const cartData = {
-          userEmail: user?.email, // Use optional chaining to avoid potential errors if `user` is undefined
-          name: product?.name, // Optional chaining for `product`
-          price: product?.price,
-          productImage: product?.productImage,
-        };
-      
-        // Validate that required fields are present before making the API call
-        if (!cartData.userEmail || !cartData.name || !cartData.price || !cartData.productImage) {
-          alert("All fields are required to add the product to the cart.");
+      if (!user) {
+        notify("Please log in to add items to the cart.");
+        return;
+      }
+      console.log(product)
+      // Define the cart data
+      const cartData = {
+        userEmail: user?.email,
+        name: product?.name,
+        price: product?.price,
+        sellerEmail: product?.userEmail,
+        productImage: product?.productImage,
+      };
+    
+      // Check for missing fields
+      for (const [key, value] of Object.entries(cartData)) {
+        if (!value) {
+          notify(`All fields are required. Missing: ${key}`);
           return;
         }
-      
-        try {
-          // Make the POST request
-          const response = await axios.post(
-            "http://localhost:5000/addToCart", // Corrected endpoint name to match the server-side changes
-            cartData,
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-      
-          // Show success message
-          alert(response.data.message);
-        } catch (error) {
-          console.error("Error:", error.response?.data?.message || "Something went wrong");
-          alert(error.response?.data?.message || "Failed to add product to cart. Please try again.");
-        }
-      };
+      }
+    
+      try {
+        await axios.post("http://localhost:5000/addToCart", cartData, {
+          headers: { "Content-Type": "application/json" },
+        });
+        notify("Item added to cart successfully!");
+      } catch (error) {
+        console.error("Error adding to cart:", error.response || error.message);
+        notify("Failed to add item to cart. Please try again.");
+      }
+    };
+    
+          
   return (
     <div className="min-h-screen">
       <div className="bg-gray-100 p-10 text-black ">
@@ -138,6 +141,7 @@ const ViewProduct = () => {
             
         </div>
     </div>
+    <ToastContainer />
 </div>
 
     </div>

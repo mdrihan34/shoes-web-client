@@ -14,44 +14,38 @@ import { IoEyeOutline } from "react-icons/io5";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-
+import { ToastContainer, toast } from 'react-toastify';
 const ProductCard = ({product}) => {
    const {user} = useContext(AuthContext)
-    const handleAddToCart = async () => {
-        const cartData = {
-          userEmail: user?.email, // Use optional chaining to avoid potential errors if `user` is undefined
-          name: product?.name, // Optional chaining for `product`
-          price: product?.price,
-          productImage: product?.productImage,
-        };
-      
-        // Validate that required fields are present before making the API call
-        if (!cartData.userEmail || !cartData.name || !cartData.price || !cartData.productImage) {
-          alert("All fields are required to add the product to the cart.");
-          return;
-        }
-      
-        try {
-          // Make the POST request
-          const response = await axios.post(
-            "http://localhost:5000/addToCart", // Corrected endpoint name to match the server-side changes
-            cartData,
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-      
-          // Show success message
-          alert(response.data.message);
-        } catch (error) {
-          console.error("Error:", error.response?.data?.message || "Something went wrong");
-          alert(error.response?.data?.message || "Failed to add product to cart. Please try again.");
-        }
-      };
+   const notify = (message) => toast(message);
+   const handleAddToCart = async () => {
+    if (!user) {
+      notify("Please logIn to add items to the cart.");
+      return;
+    }
+
+    const cartData = {
+      userEmail: user?.email,
+      name: product.name,
+      price: product.price,
+      sellerEmail: product.userEmail,
+      productImage: product.productImage,
+    };
+
+    try {
+      await axios.post("http://localhost:5000/addToCart", cartData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      notify("Item added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      notify("Failed to add item to cart. Please try again.");
+    }
+  };
+    
   return (
   <motion.div animate={{ x: 100 }} transition={{ type: "spring" }}>
+      <ToastContainer />
   <Card className="w-96">
     <CardHeader shadow={false} floated={false} className="h-72">
       <img
@@ -97,6 +91,7 @@ const ProductCard = ({product}) => {
     view
       </Button></Link>
     </CardFooter>
+  
   </Card>
   </motion.div>
   )

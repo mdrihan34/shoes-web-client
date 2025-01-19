@@ -69,7 +69,7 @@ const DashSideBar = () => {
       } lg:translate-x-0`}
       aria-label="Sidebar"
     >
-      <div className="h-full px-3 overflow-y-auto ">
+      <div className="px-3 h-full overflow-y-auto ">
         
 
 <div className="w-full max-w-sm  ">
@@ -91,7 +91,7 @@ const DashSideBar = () => {
       <div>
           <li>
           <NavLink
-            to="/dashboard/seller" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Seller" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <MdDashboard />
@@ -138,7 +138,7 @@ const DashSideBar = () => {
       {currentUser.role === 'Buyer' && (
       <div>
           <NavLink
-            to="/dashboard/buyer" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Buyer" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
               <MdDashboard />
@@ -164,7 +164,7 @@ const DashSideBar = () => {
           </li>
         <li>
         <NavLink
-            to="/dashboard/Wishlist" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <MdOutlineFavoriteBorder />
@@ -189,7 +189,7 @@ const DashSideBar = () => {
       <div>
           <li>
           <NavLink
-            to="/dashboard/AdminDashboard" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Admin" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Admin Dashboard</span>
@@ -197,7 +197,7 @@ const DashSideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/admin-dashboard" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/manageSeller" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Manage Sellers</span>

@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react"
 import ProductCard from "../../page/productCard"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 
 
 const ProductSection = () => {
@@ -25,11 +26,13 @@ console.log(products)
            
 
         </div>
-        <Button className="flex uppercase text-black shadow-xl border-t-2 border-cyan-400 mx-auto items-center gap-3">
-       
-        View more products
+<Link to='/products'>
+<Button className="flex bg-white uppercase text-black shadow-xl border-t-2 border-cyan-400 mx-auto items-center gap-3">
+View more products
         <HiArrowNarrowRight />
       </Button>
+</Link>       
+       
     </div>
   )
 }
