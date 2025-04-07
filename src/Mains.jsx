@@ -10,7 +10,7 @@ const Mains = () => {
 
   const shouldHideFooter = hideFooterRoutes.includes(location.pathname);
   return (
-    <div>
+    <div className=''>
       <Navbar></Navbar>
       <Outlet>
 

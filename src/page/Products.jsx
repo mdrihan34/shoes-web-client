@@ -12,10 +12,10 @@ import "react-toastify/dist/ReactToastify.css";
 const Products = () => {
   const notify = (message) => toast(message);
   const [products, setProducts] = useState([]);
-  const [search, setSearch] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [totalProducts, setTotalProducts] = useState(0);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -24,7 +24,8 @@ const Products = () => {
         const { data } = await axios.get(
           `http://localhost:5000/api/products?page=${currentPage}&limit=${itemsPerPage}`
         );
-        setProducts(data.products || []); // Assuming `data.products` is the array
+        setProducts(data.products || []);
+        setTotalProducts(data.totalProducts || 0);
       } catch (error) {
         console.error("Error fetching products:", error);
         notify("Failed to fetch products. Please try again later.");
@@ -33,17 +34,8 @@ const Products = () => {
     fetchProducts();
   }, [currentPage]);
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const sortedProducts = [...filteredProducts].sort((a, b) =>
+  const sortedProducts = [...products].sort((a, b) =>
     sortOrder === "asc" ? a.price - b.price : b.price - a.price
-  );
-
-  const displayedProducts = sortedProducts.slice(
-    0,
-    itemsPerPage
   );
 
   const handleAddToCart = async (product) => {
@@ -71,17 +63,13 @@ const Products = () => {
     }
   };
 
+  const totalPages = Math.ceil(totalProducts / itemsPerPage);
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container border-2 border-red-600 mt-20 mx-auto">
       <ToastContainer />
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-        <input
-          type="text"
-          placeholder="Search products..."
-          className="border p-2 rounded w-full sm:w-1/2 mb-2 sm:mb-0"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <h2 className="text-xl font-bold mb-2 sm:mb-0">All Products</h2>
         <select
           className="border p-2 rounded w-full sm:w-1/4"
           value={sortOrder}
@@ -98,7 +86,7 @@ const Products = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {displayedProducts.map((product) => (
+        {sortedProducts.map((product) => (
           <motion.div
             key={product._id}
             className="border p-4 rounded shadow-lg hover:shadow-xl"
@@ -109,7 +97,7 @@ const Products = () => {
               src={`http://localhost:5000${product.productImage}`}
               alt={product.name || "Product Image"}
               className="w-full h-48 object-cover rounded mb-2"
-              onError={(e) => (e.target.src = "/fallback-image.png")} // Fallback image
+              onError={(e) => (e.target.src = "/fallback-image.png")}
             />
             <h3 className="text-lg font-bold">{product.name}</h3>
             <p className="text-gray-600">${product.price}</p>
@@ -133,7 +121,7 @@ const Products = () => {
       </motion.div>
 
       <div className="flex justify-center mt-4 space-x-2">
-        {Array.from({ length: Math.ceil(filteredProducts.length / itemsPerPage) }, (_, index) => (
+        {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
             className={`px-3 py-1 rounded ${

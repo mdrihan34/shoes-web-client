@@ -13,7 +13,7 @@ const ManageSellers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axiosPublic.get("/users"); // Replace with your actual API endpoint
+        const response = await axiosPublic.get("/users"); 
         const users = response.data;
 
         // Filter Sellers and Pending users
@@ -30,17 +30,17 @@ const ManageSellers = () => {
     fetchUsers();
   }, [axiosPublic]);
 
-  // Update role for a user
+
   const updateUserRole = async (id, email) => {
     try {
       await axiosPublic.put(`/users/${id}`, { role: "Seller" }); // Update user role API
 
-      // Move user from pending to sellers list
+
       const updatedUser = pendingSellers.find((user) => user._id === id);
       setSellers((prev) => [...prev, updatedUser]);
       setPendingSellers((prev) => prev.filter((user) => user._id !== id));
 
-      // Show success toast
+
       toast.success(`${email} has been approved as a Seller!`, {
         position: "top-right",
       });
@@ -63,13 +63,12 @@ const ManageSellers = () => {
 
     if (confirmDelete.isConfirmed) {
       try {
-        await axiosPublic.delete(`/users/${id}`); // Delete user API
+        await axiosPublic.delete(`/users/${id}`); 
 
-        // Remove user from respective list
         setSellers((prev) => prev.filter((user) => user._id !== id));
         setPendingSellers((prev) => prev.filter((user) => user._id !== id));
 
-        // Show success alert
+       
         Swal.fire("Deleted!", `${email} has been removed.`, "success");
       } catch (error) {
         console.error(`Error deleting user ${id}:`, error);
@@ -100,7 +99,7 @@ const ManageSellers = () => {
                   <td className="border px-4 py-2">{seller.name}</td>
                   <td className="border px-4 py-2">{seller.email}</td>
                   <td className="border px-4 py-2 flex space-x-4">
-                    {/* Approve Button */}
+               
                     <button
                       onClick={() => updateUserRole(seller._id, seller.email)}
                       className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center"
@@ -122,7 +121,7 @@ const ManageSellers = () => {
                       Approve
                     </button>
 
-                    {/* Delete Button */}
+               
                     <button
                       onClick={() => deleteUser(seller._id, seller.email)}
                       className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 flex items-center"
@@ -151,7 +150,7 @@ const ManageSellers = () => {
         </div>
       </div>
 
-      {/* Approved Sellers */}
+
       <div>
         <h2 className="text-2xl font-semibold mb-4">Sellers List</h2>
         <div className="overflow-x-auto">

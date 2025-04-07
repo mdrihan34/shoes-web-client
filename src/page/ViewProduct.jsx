@@ -11,6 +11,7 @@ const ViewProduct = () => {
     const {id} = useParams()
     const [product, setProduct] = useState({})
     const axiosPublic = useAxiosPublic()
+    const [current , setCurrentUser] = useState()
     // const [message, setMessage] = useState("");
     useEffect(()=>{
       axiosPublic.get(`/products/${id}`)
@@ -50,11 +51,31 @@ const ViewProduct = () => {
         notify("Failed to add item to cart. Please try again.");
       }
     };
-    
+    useEffect(() => {
+      const fetchCurrentUser = async () => {
+        if (!user?.email) {
+          console.error("No logged-in user found");
+          return;
+        }
+  
+        try {
+          const response = await axiosPublic.get('/current-user', {
+            params: { email: user.email },
+          });
+          setCurrentUser(response.data); 
+        } catch (error) {
+          console.error("Failed to fetch user data", error);
+        }
+      };
+  
+      if (user?.email) {
+        fetchCurrentUser(); 
+      }
+    }, [user, axiosPublic]);   
           
   return (
     <div className="min-h-screen">
-      <div className="bg-gray-100 p-10 text-black ">
+      <div className=" p-10 text-black ">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4">
@@ -62,12 +83,14 @@ const ViewProduct = () => {
                     <img className="w-full h-[70%] p-5 " src={`http://localhost:5000${product.productImage}`} alt="Product Image"/>
                 </div>
                 <div className="flex -mx-2 mb-4">
-                    <div className="w-1/2 px-2">
-                        <button onClick={handleAddToCart} className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
-                    </div>
-                    <div className="w-1/2 px-2">
-                        <button className="w-full bg-gray-200  text-black dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">Add to Wishlist</button>
-                    </div>
+                  {
+                    current?.role === 'Buyer' && (
+                      <div className="w-1/2 px-2">
+                      <button onClick={handleAddToCart} className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">Add to Cart</button>
+                  </div>
+                    )
+                  }
+                    
                 </div>
             </div>
             <div className="md:flex-1 px-4">

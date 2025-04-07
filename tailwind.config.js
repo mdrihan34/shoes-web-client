@@ -5,14 +5,26 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        'gradient-custom': 'linear-gradient(to right, #EF4444, #C084FC, #FBCFE8)',
+      },
+    },
   },
   plugins: [
     require('daisyui'),
   ],
- daisyui: {
-    themes: ["light"],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          "primary": "#EF4444",
+          "secondary": "#C084FC",
+          "accent": "#FBCFE8",
+          "neutral": "#F3F4F6",
+          "base-100": "#ffffff",
+        },
+      },
+    ],
   },
-
 }
-

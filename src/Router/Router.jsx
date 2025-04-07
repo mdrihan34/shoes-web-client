@@ -6,7 +6,7 @@ import Register from "../loginRegister/Register";
 import Dashboard from "../dashboard/Dashboard";
 import BuyerDash from "../dashboard/buyerComponets/BuyerDash";
 import MyOrderDash from "../dashboard/buyerComponets/MyOrderDash";
-import Wishlist from "../dashboard/buyerComponets/Wishlist";
+
 import SellerDash from "../dashboard/seller/SellerDash";
 import AddProducts from "../dashboard/seller/AddProducts";
 import ManageProducts from "../dashboard/seller/ManageProducts";
@@ -19,6 +19,7 @@ import AboutSection from "../page/AboutSection";
 import PrivateRoute from "../AuthProvider/PrivateRoute";
 import ManageSellers from "../dashboard/admin/ManageSellers";
 import PendingApproval from "../page/PendingApproval";
+import OrderOverview from "../dashboard/admin/OrderOverview";
 
 // import Mains from "../Mains";
 // // import Home from "../Componets/home/Home";
@@ -73,10 +74,7 @@ export const router = createBrowserRouter([
       path: "/dashboard/my-order",
       element: <MyOrderDash></MyOrderDash>
     },
-    {
-      path: "/dashboard/Wishlist",
-      element: <Wishlist></Wishlist>
-    },
+
     {
       path: "/dashboard/Seller",
       element: <SellerDash></SellerDash>
@@ -101,6 +99,10 @@ export const router = createBrowserRouter([
     {
       path: "/dashboard/admin",
       element: <AdminDashboard></AdminDashboard>
+    },
+    {
+      path: "/dashboard/orders-overview",
+      element: <OrderOverview></OrderOverview>
     },
     {
       path: "/dashboard/Pending",

@@ -18,9 +18,9 @@ const Register = () => {
     createUser(email, password);
     const role = data.role;
     const name = data.name;
-    const profilePicture = data.profilePicture[0]; // File upload handling
+    const profilePicture = data.profilePicture[0]; 
 
-    // Create FormData to handle both the form fields and the file
+
     const formData = new FormData();
     formData.append("email", email);
     formData.append("password", password);
@@ -31,7 +31,7 @@ const Register = () => {
     try {
       const response = await axios.post("http://localhost:5000/register", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Ensure the backend handles file uploads
+          "Content-Type": "multipart/form-data", 
         },
       });
       alert(response.data.message);

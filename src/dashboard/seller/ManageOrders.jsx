@@ -20,7 +20,11 @@ const ManageOrders = () => {
         const response = await fetch(`http://localhost:5000/order?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
-          setOrders(data);
+          // ✅ Only keep Pending or Confirmed orders for seller view
+          const filtered = data.filter(
+            (order) => order.Status === "pending" || order.Status === "Confirmed"
+          );
+          setOrders(filtered);
         } else {
           console.error("Error fetching orders:", data.message);
         }
@@ -34,14 +38,14 @@ const ManageOrders = () => {
     fetchOrders();
   }, [user]);
 
-  const handleUpdates = async (orderToUpdate) => {
-    if (orderToUpdate.Status === "confam") {
-      alert("Order is already confirmed.");
+  const updateOrderStatus = async (orderToUpdate, newStatus) => {
+    if (orderToUpdate.Status === newStatus) {
+      alert(`Order is already ${newStatus}.`);
       return;
     }
 
     try {
-      const updatedOrder = { ...orderToUpdate, Status: "Confirmed" };
+      const updatedOrder = { ...orderToUpdate, Status: newStatus };
       const response = await fetch(`http://localhost:5000/order/${orderToUpdate._id}`, {
         method: 'PUT',
         headers: {
@@ -52,12 +56,16 @@ const ManageOrders = () => {
 
       const data = await response.json();
       if (response.ok && data.modifiedCount > 0) {
+        // Remove cancelled order, update others
         setOrders((prev) =>
-          prev.map((order) =>
-            order._id === orderToUpdate._id ? updatedOrder : order
-          )
+          newStatus === "Cancelled"
+            ? prev.filter((order) => order._id !== orderToUpdate._id)
+            : prev.map((order) =>
+                order._id === orderToUpdate._id ? updatedOrder : order
+              )
         );
-        alert("Order status updated to Confirmed!");
+
+        alert(`Order ${newStatus === "Cancelled" ? "cancelled" : "confirmed"} successfully.`);
         setIsPopupOpen(false);
       } else {
         alert("No changes made.");
@@ -102,12 +110,13 @@ const ManageOrders = () => {
                   <td className="p-4 border-b">{order.Status}</td>
                   <td className="p-4 border-b flex space-x-3">
                     <button
-                      onClick={() => handleUpdates(order)}
+                      onClick={() => updateOrderStatus(order, "Confirmed")}
                       className="text-green-500 hover:text-green-700 flex items-center space-x-1"
                     >
                       <FiCheck /> <span>Confirm</span>
                     </button>
                     <button
+                      onClick={() => updateOrderStatus(order, "Cancelled")}
                       className="text-red-500 hover:text-red-700 flex items-center space-x-1"
                     >
                       <FiX /> <span>Cancel</span>
@@ -127,23 +136,42 @@ const ManageOrders = () => {
       </div>
 
       {isPopupOpen && currentOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Order Details</h3>
+              <h3 className="text-xl font-semibold">Order Details</h3>
               <button onClick={handlePopupClose} className="text-gray-600 hover:text-gray-800">
-                <FiX size={20} />
+                <FiX size={24} />
               </button>
             </div>
-            <div className="space-y-4">
-              <p><strong>Email:</strong> {currentOrder.OrderEmail}</p>
-              <p><strong>Address:</strong> {currentOrder.address}</p>
-              <p><strong>Contact Number:</strong> {currentOrder.phone}</p>
+
+            <div className="space-y-2 text-sm">
+              <p><strong>Buyer Name:</strong> {currentOrder.OrderName}</p>
+              <p><strong>Buyer Email:</strong> {currentOrder.OrderEmail}</p>
+              <p><strong>Buyer Contact:</strong> {currentOrder.phone}</p>
+              <p><strong>Address:</strong> {currentOrder.address}, ZIP: {currentOrder.zip}</p>
+              <p><strong>Seller Email:</strong> {currentOrder.sellerEmail}</p>
               <p><strong>Status:</strong> {currentOrder.Status}</p>
+              <p><strong>Total Price:</strong> ${currentOrder.totalPrice}</p>
+              <p><strong>Ordered At:</strong> {new Date(currentOrder.createdAt).toLocaleString()}</p>
+
+              {Array.isArray(currentOrder.items) && currentOrder.items.length > 0 && (
+                <div className="mt-4">
+                  <h4 className="text-md font-semibold mb-2">Items:</h4>
+                  {currentOrder.items.map((item, index) => (
+                    <div key={index} className="p-3 border rounded-md bg-gray-50 mb-2">
+                      <p><strong>Title:</strong> {item.title}</p>
+                      <p><strong>Price:</strong> ${item.price}</p>
+                      <p><strong>Quantity:</strong> {item.quantity}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
             <button
               onClick={handlePopupClose}
-              className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+              className="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
             >
               Close
             </button>

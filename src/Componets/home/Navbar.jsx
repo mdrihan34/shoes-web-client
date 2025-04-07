@@ -4,6 +4,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import axios from "axios";
 import { MdAddShoppingCart } from "react-icons/md";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import WebLogo from './../../assets/icons/WebLogo.gif'
+
 const Navbar = () => {
   const [cartCount, setCartCount] = useState([]);
   const { user, logOut } = useContext(AuthContext);
@@ -26,6 +28,7 @@ const Navbar = () => {
         console.error("Failed to fetch user data", error);
       }
     };
+
 
     if (user?.email) {
       fetchCurrentUser(); 
@@ -58,6 +61,7 @@ const Navbar = () => {
       fetchUserProducts();
   
 })
+
   useEffect(() => {
     const fetchProfilePic = async () => {
      
@@ -112,17 +116,12 @@ console.log(currentUser.role)
      </li>)
   } 
       
-      <li className="rounded-full font-bold md:mr-12 lg:hidden border-2 border-green-500 px-6 py-1 text-green-600 transition-colors hover:bg-green-500 hover:text-white">
+      {/* <li className="rounded-full font-bold md:mr-12 lg:hidden border-2 border-green-500 px-6 py-1 text-green-600 transition-colors hover:bg-green-500 hover:text-white">
         <NavLink to="/wishlist">Dashboard</NavLink>
-      </li>
+      </li> */}
  <li>
  {user ? <div>
- <div className="flex lg:hidden justify-center rounded-full items-center gap-2 mb-10 border-2 border-green-500 h-10  text-green-600 transition-colors">
- <li className=" lg:hidden md:mr-12 ">
-  <img className="rounded-full w-10" src={`http://localhost:5000${profilePic}`}  />
-  </li>
-  <li className="rounded-full  font-bold lg:hidden md:mr-12  hover:bg-green-500 hover:text-white"><Link onClick={logOut}>LogOut</Link></li>
- </div>
+
   <li className="rounded-full font-bold md:mr-12 lg:hidden border-2 border-green-500 px-6 py-1 text-green-600 transition-colors hover:bg-green-500 hover:text-white">
         <NavLink to="/wishlist">Dashboard</NavLink>
       </li>
@@ -136,11 +135,13 @@ console.log(currentUser.role)
   );
 
   return (
-    <div className="lg:flex justify-center items-center lg:mt-2 lg:mb-6">
-      <header className="relative w-full z-20 flex flex-col items-center px-4 py-2 text-slate-700 md:mx-auto md:flex-row md:items-center max-w-screen-xl">
-        <h1 className="text-2xl font-black whitespace-nowrap cursor-pointer flex items-center">
-          Quick<span className="text-orange-900">Mart</span>
-        </h1>
+    <div className="lg:flex justify-center w-full items-center lg:mt-2 lg:mb-6">
+      <header className="relative w-full z-20 flex flex-col items-center px-4 py-2 text-slate-700 md:mx-auto md:flex-row md:items-center max-w-screen-2xl">
+      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center">
+      <img src={WebLogo} alt="Website Logo" className="  w-[48%] lg:w-[18%]  absolute top-[-47px] lg:top-[-79px] left-[-4%] lg:left-[-182px]" />
+    </div>
+    </div>
         <input type="checkbox" className="sm:hidden peer hidden" id="navbar-open" />
         <label htmlFor="navbar-open" className="absolute top-5 right-7 cursor-pointer md:hidden">
           <span className="sr-only">Toggle Navigation</span>
@@ -154,41 +155,16 @@ console.log(currentUser.role)
           </ul>
         </nav>
       </header>
-      <div className="invisible lg:visible absolute top-2 lg:right-[15%] w-10">
+      <div className=" absolute top-2 lg:right-[9%] w-10">
         {user ? (
-          <div className="dropdown dropdown-right">
-            <div tabIndex={0} role="button" className=" m-1">
+          
+            
             <div className="avatar">
   <div className="ring-primary  w-16 rounded-full ring ring-offset-2">
     <img src={`http://localhost:5000${profilePic}`}  />
   </div>
 </div>
-            </div>
-            {/* <div className="relative"> */}
-    <ul
-        tabIndex={0}
-        className="absolute space-y-2 ml-2 rounded-box dropdown-content bg-base-100 w-52 p-4 z-50 shadow-lg"
-    >
-        <li>
-            <Link
-                className="btn w-full h-full btn-outline btn-primary py-2 hover:bg-primary hover:text-white"
-                to={`/dashboard/${currentUser.role}`}
-            >
-                Dashboard
-            </Link>
-        </li>
-        <li>
-            <button
-                className="btn w-full btn-outline btn-secondary py-2 hover:bg-secondary hover:text-white"
-                onClick={logOut}
-            >
-                LogOut
-            </button>
-        </li>
-    </ul>
-{/* </div> */}
-
-          </div>
+           
         ) : (
           <div className="md:mr-12">
             <Link to="/login">

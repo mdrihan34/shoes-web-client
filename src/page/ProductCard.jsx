@@ -9,13 +9,16 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import { motion } from "motion/react"
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { ToastContainer, toast } from 'react-toastify';
+import useAxiosPublic from "../hooks/useAxiosPublic";
 const ProductCard = ({product}) => {
+  const axiosPublic = useAxiosPublic()
+  const [current , setCurrentUser] = useState({})
    const {user} = useContext(AuthContext)
    const notify = (message) => toast(message);
    const handleAddToCart = async () => {
@@ -42,11 +45,32 @@ const ProductCard = ({product}) => {
       notify("Failed to add item to cart. Please try again.");
     }
   };
-    
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      if (!user?.email) {
+        console.error("No logged-in user found");
+        return;
+      }
+
+      try {
+        const response = await axiosPublic.get('/current-user', {
+          params: { email: user.email },
+        });
+        setCurrentUser(response.data); 
+      } catch (error) {
+        console.error("Failed to fetch user data", error);
+      }
+    };
+
+    if (user?.email) {
+      fetchCurrentUser(); 
+    }
+  }, [user, axiosPublic]);    
   return (
-  <motion.div animate={{ x: 100 }} transition={{ type: "spring" }}>
+  <motion.div>
       <ToastContainer />
-  <Card className="w-96">
+  <Card className="lg:96 ">
     <CardHeader shadow={false} floated={false} className="h-72">
       <img
         src={`http://localhost:5000${product.productImage}`}
@@ -55,7 +79,7 @@ const ProductCard = ({product}) => {
       />
     </CardHeader>
     <CardBody>
-      <div className="mb-2 flex gap-2 justify-between">
+      <div className="mb-2  flex gap-2 justify-between">
         <Typography color="blue-gray" className="font-medium">
          {product.name}
         </Typography>
@@ -75,13 +99,17 @@ const ProductCard = ({product}) => {
       </Typography>
     </CardBody>
     <CardFooter className="pt-0 flex justify-between w-full">
-      <Button onClick={handleAddToCart}
-      
-        className="bg-blue-gray-900/10 border-2 border-green-400 text-black  items-center gap-1 text-sm flex  shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
-      >
-        <MdAddShoppingCart />
-        Add to Cart
-      </Button>
+    { 
+  current?.role === 'Buyer' && (
+    <Button 
+      onClick={handleAddToCart}
+      className="bg-blue-gray-900/10 border-2 border-green-400 text-black items-center gap-1 text-sm flex shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+    >
+      <MdAddShoppingCart />
+      Add to Cart
+    </Button>
+  )
+}
       <Link to={`/view-product/${product._id}`}>
       <Button 
       

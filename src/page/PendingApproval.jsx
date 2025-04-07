@@ -31,11 +31,7 @@ const PendingApproval = () => {
             repeatType: "reverse",
           }}
         >
-          <img
-            src="https://i.imgur.com/PL7w6Dt.png"
-            alt="Pending Animation"
-            className="w-24 h-24"
-          />
+         
         </motion.div>
       <Link to= '/'>
       <button className="mt-6 px-4 py-2 text-sm text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">

@@ -65,12 +65,12 @@ const AddProducts = () => {
     }
    console.log(currentUser)
    const onSubmit = async (data) => {
-    console.log('Form Data:', data); // Check what data is being sent
+    console.log('Form Data:', data); 
     const formData = new FormData();
     formData.append("Name", data.productName);
     formData.append("Price", data.productPrice);
     formData.append("description", data.productDescription);
-    formData.append("productImage", data.productImage[0]); // File input
+    formData.append("productImage", data.productImage[0]); 
     formData.append("userName", currentUser.name);
     formData.append("userEmail", currentUser.email);
     formData.append("userProfile", currentUser.profilePicture);

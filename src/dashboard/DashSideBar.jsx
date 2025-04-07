@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { MdDashboard, MdManageSearch, MdOutlineFavoriteBorder } from "react-icons/md";
 import { FaLuggageCart } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
 import axios from "axios";
+import { FiHome } from "react-icons/fi";
 
 const DashSideBar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -91,7 +92,7 @@ const DashSideBar = () => {
       <div>
           <li>
           <NavLink
-            to="/dashboard/Seller" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Seller" 
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <MdDashboard />
@@ -100,7 +101,7 @@ const DashSideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/add-product" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/add-product" 
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Add Product:</span>
@@ -108,7 +109,7 @@ const DashSideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/ManageProducts" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/ManageProducts" 
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Manage Products</span>
@@ -116,7 +117,7 @@ const DashSideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/ManageOrders" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/ManageOrders" 
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Orders</span>
@@ -125,7 +126,7 @@ const DashSideBar = () => {
       
         <li>
           <NavLink
-            to="/seller-dashboard" // এখানে সেলার ড্যাশবোর্ডের রাউটটি দিন
+            to="/seller-dashboard" 
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Account Settings</span>
@@ -138,7 +139,7 @@ const DashSideBar = () => {
       {currentUser.role === 'Buyer' && (
       <div>
           <NavLink
-            to="/dashboard/Buyer" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Buyer" 
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
               <MdDashboard />
@@ -146,7 +147,7 @@ const DashSideBar = () => {
           </NavLink>
          <li>
          <NavLink
-            to="/buyer-dashboard" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/products" 
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <MdManageSearch />
@@ -155,7 +156,7 @@ const DashSideBar = () => {
          </li>
           <li>
           <NavLink
-            to="/dashboard/my-order" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/my-order" 
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <FaLuggageCart />
@@ -163,18 +164,11 @@ const DashSideBar = () => {
           </NavLink>
           </li>
         <li>
-        <NavLink
-            to="/" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
-            className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            <MdOutlineFavoriteBorder />
-
-            <span>Wishlist</span>
-          </NavLink>
+        
         </li>
         <li>
         <NavLink
-            to="/dashboard/carts" // এখানে বায়ার ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/carts" 
             className="flex gap-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <BsCart
@@ -189,7 +183,7 @@ const DashSideBar = () => {
       <div>
           <li>
           <NavLink
-            to="/dashboard/Admin" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/Admin"
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Admin Dashboard</span>
@@ -197,31 +191,17 @@ const DashSideBar = () => {
         </li>
         <li>
           <NavLink
-            to="/dashboard/manageSeller" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/manageSeller"
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Manage Sellers</span>
           </NavLink>
         </li>
+        
+        
         <li>
           <NavLink
-            to="/admin-dashboard" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            <span>Manage Buyers</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/admin-dashboard" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            <span>Manage Products</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/admin-dashboard" // এখানে অ্যাডমিন ড্যাশবোর্ডের রাউটটি দিন
+            to="/dashboard/orders-overview"
             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
           >
             <span>Orders Overview</span>
@@ -235,21 +215,22 @@ const DashSideBar = () => {
 
       {/* Common Settings Link */}
       <li>
-        <NavLink
-          to="/settings" // Settings পৃষ্ঠার জন্য রাউট
-          className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-        >
-          <span>Settings</span>
-        </NavLink>
+      <Link to='/'
+                className="btn uppercase w-full btn-outline btn-secondary py-2 hover:bg-secondary hover:text-white"
+               
+            > <FiHome></FiHome>
+                Home
+            </Link>
       </li>
       <li>
       <button
-                className="btn w-full btn-outline btn-secondary py-2 hover:bg-secondary hover:text-white"
+                className="btn uppercase w-full btn-outline btn-primary  py-2 hover:bg-secondary hover:text-white"
                 onClick={logOut}
             >
                 LogOut
             </button>
       </li>
+    
     </ul>
       </div>
     </aside>

@@ -1,41 +1,103 @@
-import bannerPic from '/bannerPic.jpg'
-console.log(bannerPic)
+import { useState } from "react";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { shoes, statistics } from "../constants";
+import Button from "../Componets/Button.jsx";
+import ShoeCard from "../Componets/ShoeCard.jsx";
+import { bigShoe1 } from "../assets/images";
+import { arrowRight } from "../assets/icons";
+
 const Hero = () => {
+  const [bigShoeImg, setBigShoeImg] = useState(bigShoe1);
+  gsap.registerPlugin(useGSAP)
+  useGSAP(() => {
+    // gsap code here...
+    gsap.from('.box', { 
+      x: 700,  
+      delay: 0.2,
+
+      rotate: 100
+    
+      // repeat: -1,
+      // yoyo: true
+    }); // <-- automatically reverted
+    gsap.from('.box1', { 
+      y: 1000,  
+      delay: 0.2,
+    
+      rotate: 100
+      // repeat: -1,
+      // yoyo: true
+    }); //
+    // gsap.from('.box1', { 
+    //   y: 1400,  
+    //   delay: 0.2,
+    //   rotate: 30
+    //   // repeat: -1,
+    //   // yoyo: true
+    // }); //
+},);
   return (
-    <div>
-      <div className="relative mx-auto px-4 pt-16 sm:max-w-xl md:max-w-full md:px-8 lg:py-32 xl:px-20">
-  <div className="mx-auto max-w-xl lg:max-w-screen-xl">
-    <div className="mb-16 text-center lg:mb-0 lg:max-w-lg lg:text-left">
-      <div className="mb-6 max-w-xl">
-        <div>
-        </div>
-        <h2 className="mb-6 max-w-lg font-sans text-3xl font-bold tracking-tight text-slate-700 sm:text-5xl sm:leading-snug">
-       
-          <span className="inline-block text-green-500">Discover Quality Products at Amazing Prices!</span>
-        </h2>
-        <p className="text-base text-gray-700 md:text-lg">Shop the best deals on t-shirts, mugs, hoodies, and more. Your one-stop online store for unique and stylish items.</p>
+    <section
+    id='home'
+    className='w-full box1 flex xl:flex-row flex-col justify-center items-center  gap-10 px-6 sm:px-12 max-container'
+  >
+    <div className='relative xl:w-2/5 w-full flex flex-col justify-center items-start pt-28 space-y-8'>
+      <p className='text-xl font-montserrat text-coral-red'>
+        Exclusive Shoe Collection
+      </p>
+  
+      <h1 className='font-palanquin text-6xl sm:text-7xl xl:text-8xl max-sm:text-[64px] max-sm:leading-[72px] font-bold'>
+        <span className='bg-white  xl:whitespace-nowrap relative z-10 pr-4 sm:pr-8'>
+          Step into Comfort
+        </span>
+        <br />
+        <span className='text-coral-red inline-block mt-2 sm:mt-3'>Trendy</span> Footwear
+      </h1>
+  
+      <p className='font-montserrat text-slate-gray text-base sm:text-lg leading-7 sm:leading-8 mt-4 sm:mt-6 max-w-md'>
+        Find the perfect blend of comfort, quality, and design for every occasion.
+      </p>
+  
+      {/* <Button label='Explore Now' iconURL={arrowRight} /> */}
+  
+      <div className='flex flex-wrap justify-start items-start border-2 p-4 rounded-xl gap-10 mt-12'>
+        {statistics.map((stat, index) => (
+          <div key={index} className='text-center sm:text-left'>
+            <p className='text-3xl sm:text-4xl font-palanquin font-bold'>{stat.value}</p>
+            <p className='font-montserrat text-slate-gray text-sm sm:text-base leading-6'>
+              {stat.label}
+            </p>
+          </div>
+        ))}
       </div>
-     
-
-   
     </div>
-    <div className=" h-full justify-center overflow-hidden lg:absolute lg:bottom-0 lg:right-0 lg:flex lg:w-1/2 lg:items-end lg:justify-start">
-  <svg className="h-full w-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <pattern id="img1" x="0" y="0" width="1" height="1">
-       {/* <img className='' src={bannerPic} alt="" /> */}
-        <image href={bannerPic} x="0" y="0" width="79%" height="90%" preserveAspectRatio="xMidYMid slice" />
-      </pattern>
-    </defs>
-    <path fill="url(#img1)" d="M40,-62.6C52.2,-54.5,62.5,-43.9,66.9,-31.4C71.3,-18.9,69.6,-4.6,65.9,8.3C62.2,21.1,56.4,32.5,49.2,45.2C42.1,57.9,33.7,72.1,22.2,75.3C10.7,78.5,-3.9,70.7,-14.8,62.1C-25.7,53.5,-32.8,44.1,-44.9,35.8C-57,27.5,-74,20.3,-82.1,7.7C-90.3,-4.8,-89.5,-22.7,-80.8,-34.8C-72,-46.9,-55.2,-53.3,-40.4,-60.2C-25.6,-67,-12.8,-74.3,0.6,-75.2C13.9,-76.1,27.9,-70.6,40,-62.6Z" transform="translate(100 100)" />
-  </svg>
-</div>
-
-  </div>
-</div>
-
+  
+    <div className='relative flex-1 flex justify-center items-center box  xl:min-h-screen py-20 sm:py-32 bg-orange-400 bg-hero bg-cover bg-center'>
+      <img
+        src={bigShoeImg}
+        alt='Shoe Collection'
+        width={610}
+        height={502}
+        className='object-contain relative z-10'
+      />
+  
+      <div className='flex gap-4 sm:gap-6 absolute -bottom-8 sm:bottom-10 px-4 sm:px-12'>
+        {shoes.map((image, index) => (
+          <div key={index} className='cursor-pointer'>
+            <ShoeCard
+              index={index}
+              imgURL={image}
+              changeBigShoeImage={setBigShoeImg}
+              bigShoeImg={bigShoeImg}
+            />
+          </div>
+        ))}
+      </div>
     </div>
-  )
-}
+  </section>
+  
+  );
+};
 
-export default Hero
+export default Hero;

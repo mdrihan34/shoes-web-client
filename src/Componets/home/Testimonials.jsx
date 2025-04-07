@@ -2,9 +2,9 @@
 const Testimonials = () => {
   return (
     <div>
-        <section className="max-w-5xl mx-auto w-full p-10 dark:bg-gray-800 dark:text-white">
+        <section className="max-w-5xl mx-auto w-full p-10  dark:text-white">
   <div className="flex items-center justify-center flex-col gap-y-2 py-5">
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">Testimonials</h2>
+    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black uppercase">Testimonials</h2>
     <p className="text-lg font-medium text-slate-700/70 dark:text-gray-400">Discover how our service can benefit you</p>
   </div>
   <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 w-full">
