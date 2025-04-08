@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react"
 // import ProductCard from '../../../src/page/ProductCard'
-import ProductCard from "../../page/ProductCard"
+import ProductCard from "../../pages/ProductCard"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 const ProductSection = () => {
 const [products, setProduct] = useState([])
 useEffect(()=>{
-  fetch('http://localhost:5000/featured-products')
+  fetch('https://shoes-web-server.vercel.app/featured-products')
   .then((res) => res.json())
   .then((data) => setProduct(data));
 },[])

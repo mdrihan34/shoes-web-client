@@ -42,7 +42,7 @@ const ViewProduct = () => {
       }
     
       try {
-        await axios.post("http://localhost:5000/addToCart", cartData, {
+        await axios.post("https://shoes-web-server.vercel.app/addToCart", cartData, {
           headers: { "Content-Type": "application/json" },
         });
         notify("Item added to cart successfully!");
@@ -80,7 +80,7 @@ const ViewProduct = () => {
         <div className="flex items-center flex-col md:flex-row -mx-4">
             <div className="md:flex-1 px-4">
                 <div className="lg:h-[460px] rounded-lg   ">
-                    <img className="w-full h-[70%] p-5 " src={`http://localhost:5000${product.productImage}`} alt="Product Image"/>
+                    <img className="w-full h-[70%] p-5 " src={`https://shoes-web-server.vercel.app${product.productImage}`} alt="Product Image"/>
                 </div>
                 <div className="flex -mx-2 mb-4">
                   {
@@ -98,7 +98,7 @@ const ViewProduct = () => {
                 <div className="flex my-2 items-center gap-2">
                 <div className="avatar">
   <div className="w-14 rounded-full">
-    <img src={`http://localhost:5000${product.userProfilePicture}`} />
+    <img src={`https://shoes-web-server.vercel.app/${product.userProfilePicture}`} />
   </div>
                 </div>
                     <h3 className="font-bold text-lg">Seller Name:<span className="uppercase text-orange-400">{product.userName}</span></h3>

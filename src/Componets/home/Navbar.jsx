@@ -43,7 +43,7 @@ const Navbar = () => {
 
     const fetchProfilePic = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/getUserProfile', {
+        const response = await axios.get('https://shoes-web-server.vercel.app/getUserProfile', {
           headers: { 'email': user.email }
         });
         setProfilePic(response.data.profilePicture);
@@ -61,7 +61,7 @@ const Navbar = () => {
 
     const fetchUserProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/carts?email=${user.email}`);
+        const response = await fetch(`https://shoes-web-server.vercel.app/carts?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
           setCartCount(data.products);
@@ -143,7 +143,7 @@ const Navbar = () => {
         <li>
           <div className="avatar lg:p-2">
             <div className="ring-primary w-16 rounded-full ring ring-offset-2">
-              <img src={`http://localhost:5000${profilePic}`} alt="Profile" />
+              <img src={`https://shoes-web-server.vercel.app/${profilePic}`} alt="Profile" />
             </div>
           </div>
         </li>

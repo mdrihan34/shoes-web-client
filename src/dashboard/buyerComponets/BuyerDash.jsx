@@ -13,7 +13,7 @@ const BuyerDash = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/orders?email=${user.email}`);
+        const response = await fetch(`https://shoes-web-server.vercel.app/orders?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
           setOrders(data);

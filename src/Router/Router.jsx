@@ -12,13 +12,13 @@ import AddProducts from "../dashboard/seller/AddProducts";
 import ManageProducts from "../dashboard/seller/ManageProducts";
 import ManageOrders from "../dashboard/seller/ManageOrders";
 import AdminDashboard from "../dashboard/admin/AdminDashboard";
-import ViewProduct from "../page/ViewProduct";
-import Carts from "../page/Carts";
-import Products from "../page/Products";
-import AboutSection from "../page/AboutSection";
+import ViewProduct from "../pages/ViewProduct";
+import Carts from "../pages/Carts";
+import Products from "../pages/Products";
+import AboutSection from "../pages/AboutSection";
 import PrivateRoute from "../AuthProvider/PrivateRoute";
 import ManageSellers from "../dashboard/admin/ManageSellers";
-import PendingApproval from "../page/PendingApproval";
+import PendingApproval from "../pages/PendingApproval";
 import OrderOverview from "../dashboard/admin/OrderOverview";
 
 export const router = createBrowserRouter([

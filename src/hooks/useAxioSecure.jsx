@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const axiosSucure = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://shoes-web-server.vercel.app'
 })
 const useAxioSecure = () => {
 return axiosSucure

@@ -20,7 +20,7 @@ const Carts = () => {
 
     const fetchUserProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/carts?email=${user.email}`);
+        const response = await fetch(`https://shoes-web-server.vercel.app/carts?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
           setCarts(data.products);
@@ -39,7 +39,7 @@ const Carts = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/carts/${id}`, {
+      const response = await fetch(`https://shoes-web-server.vercel.app/carts/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -96,7 +96,7 @@ const Carts = () => {
           })),
         };
 
-        const response = await axios.post("http://localhost:5000/orders", orderData, {
+        const response = await axios.post("https://shoes-web-server.vercel.app/orders", orderData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -145,7 +145,7 @@ const Carts = () => {
                   <div className="flex gap-4">
                     <div className="w-28 h-28 shrink-0">
                       <img
-                        src={`http://localhost:5000${cart.productImage}`}
+                        src={`https://shoes-web-server.vercel.app${cart.productImage}`}
                         className="w-full h-full object-contain"
                       />
                     </div>

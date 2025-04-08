@@ -24,7 +24,7 @@ const AddProducts = () => {
        
   
         try {
-          const response = await axios.get('http://localhost:5000/getUserProfile', {
+          const response = await axios.get('https://shoes-web-server.vercel.app/getUserProfile', {
             headers: {
               'email': user.email
             }
@@ -77,7 +77,7 @@ const AddProducts = () => {
   
     try {
       const response = await axios.post(
-        "http://localhost:5000/products-upload",
+        "https://shoes-web-server.vercel.app/products-upload",
         formData,
         {
           headers: {

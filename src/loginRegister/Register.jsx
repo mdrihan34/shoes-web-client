@@ -26,7 +26,7 @@ const Register = () => {
     formData.append("profilePicture", profilePicture);
 
     try {
-      const response = await axios.post("http://localhost:5000/register", formData, {
+      const response = await axios.post("https://shoes-web-server.vercel.app/register", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

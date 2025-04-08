@@ -32,15 +32,15 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersRes = await fetch("http://localhost:5000/api/users/count");
+        const usersRes = await fetch("https://shoes-web-server.vercel.app/api/users/count");
         const usersData = await usersRes.json();
     
 
-        const productsRes = await fetch("http://localhost:5000/api/products/count");
+        const productsRes = await fetch("https://shoes-web-server.vercel.app/api/products/count");
         const productsData = await productsRes.json();
   
 
-        const ordersRes = await fetch("http://localhost:5000/all-orders");
+        const ordersRes = await fetch("https://shoes-web-server.vercel.app/all-orders");
         const ordersData = await ordersRes.json();
       
 
@@ -73,7 +73,7 @@ const AdminDashboard = () => {
   const handleAddAdmin = async () => {
     try {
    
-      const usersRes = await fetch("http://localhost:5000/users");
+      const usersRes = await fetch("https://shoes-web-server.vercel.app/users");
       const usersData = await usersRes.json();
   
 
@@ -81,7 +81,7 @@ const AdminDashboard = () => {
   
       if (user) {
         if (user.role === "Buyer") {
-          const response = await fetch(`http://localhost:5000/users/${user._id}`, {
+          const response = await fetch(`https://shoes-web-server.vercel.app/users/${user._id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",

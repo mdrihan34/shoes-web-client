@@ -5,7 +5,7 @@ const OrderOverview = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch("http://localhost:5000/all-orders");
+      const response = await fetch("https://shoes-web-server.vercel.app/all-orders");
       const data = await response.json();
 
 

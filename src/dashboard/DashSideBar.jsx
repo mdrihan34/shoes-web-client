@@ -21,7 +21,7 @@ const DashSideBar = () => {
      
 
       try {
-        const response = await axios.get('http://localhost:5000/getUserProfile', {
+        const response = await axios.get('https://shoes-web-server.vercel.app/getUserProfile', {
           headers: {
             'email': user.email
           }
@@ -87,7 +87,7 @@ const DashSideBar = () => {
        
     </div>
     <div className="flex flex-col items-center pb-10">
-        <img className="w-20 border border-red-200 h-20 mb-3 rounded-full shadow-lg" src={`http://localhost:5000${profilePic}`} alt="profile image"/>
+        <img className="w-20 border border-red-200 h-20 mb-3 rounded-full shadow-lg" src={`https://shoes-web-server.vercel.app${profilePic}`} alt="profile image"/>
         <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{currentUser.name}</h5>
         <span className="text-sm text-gray-500 dark:text-gray-400">Email: {currentUser.email}</span>
        

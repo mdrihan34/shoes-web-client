@@ -17,7 +17,7 @@ const ManageOrders = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/order?email=${user.email}`);
+        const response = await fetch(`https://shoes-web-server.vercel.app/order?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
           // ✅ Only keep Pending or Confirmed orders for seller view
@@ -46,7 +46,7 @@ const ManageOrders = () => {
 
     try {
       const updatedOrder = { ...orderToUpdate, Status: newStatus };
-      const response = await fetch(`http://localhost:5000/order/${orderToUpdate._id}`, {
+      const response = await fetch(`https://shoes-web-server.vercel.app/order/${orderToUpdate._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

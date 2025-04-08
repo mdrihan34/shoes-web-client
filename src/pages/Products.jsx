@@ -22,7 +22,7 @@ const Products = () => {
     const fetchProducts = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/products?page=${currentPage}&limit=${itemsPerPage}`
+          `https://shoes-web-server.vercel.app/api/products?page=${currentPage}&limit=${itemsPerPage}`
         );
         setProducts(data.products || []);
         setTotalProducts(data.totalProducts || 0);
@@ -53,7 +53,7 @@ const Products = () => {
     };
 
     try {
-      await axios.post("http://localhost:5000/addToCart", cartData, {
+      await axios.post("https://shoes-web-server.vercel.app/addToCart", cartData, {
         headers: { "Content-Type": "application/json" },
       });
       notify("Item added to cart successfully!");
@@ -94,7 +94,7 @@ const Products = () => {
             whileTap={{ scale: 0.95 }}
           >
             <img
-              src={`http://localhost:5000${product.productImage}`}
+              src={`https://shoes-web-server.vercel.app${product.productImage}`}
               alt={product.name || "Product Image"}
               className="w-full h-48 object-cover rounded mb-2"
               onError={(e) => (e.target.src = "/fallback-image.png")}

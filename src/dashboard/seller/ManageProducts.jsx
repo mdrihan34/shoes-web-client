@@ -21,7 +21,7 @@ const ManageProducts = () => {
 
     const fetchUserProducts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/user-products?email=${user.email}`);
+        const response = await fetch(`https://shoes-web-server.vercel.app/user-products?email=${user.email}`);
         const data = await response.json();
         if (response.ok) {
           setProducts(data.products);
@@ -40,7 +40,7 @@ const ManageProducts = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/user-products/${id}`, {
+      const response = await fetch(`https://shoes-web-server.vercel.app/user-products/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -71,7 +71,7 @@ const ManageProducts = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/user-products/${currentProduct._id}`, {
+      const response = await fetch(`https://shoes-web-server.vercel.app/user-products/${currentProduct._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const ManageProducts = () => {
                   <tr key={product._id} className="hover:bg-gray-50">
                     <td className="p-4 border-b w-[20%]">
                       <img
-                        src={`http://localhost:5000${product.productImage}`}
+                        src={`https://shoes-web-server.vercel.app${product.productImage}`}
                         alt={product.name}
                         className="w-full object-cover rounded-lg"
                       />

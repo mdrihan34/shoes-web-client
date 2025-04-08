@@ -1,5 +1,5 @@
 
-import Hero from "../../page/Hero"
+import Hero from "../../pages/Hero"
 import FashionSneakers from "./FashionSneakers"
 import Newsletter from "./Newsletter"
 import ProductSection from "./ProductSection"
