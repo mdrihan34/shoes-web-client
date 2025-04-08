@@ -4,7 +4,7 @@ SoleSphere is a feature-rich MERN stack web application designed for shoe enthus
 
 ## 🚀 Live Demo
 
-🔗 [https://shoes-web-client.vercel.app/](#)  
+🔗 [https://shoes-web-client.vercel.app/](https://shoes-web-client.vercel.app/) 
 *(Will be updated soon)*
 
 ---
