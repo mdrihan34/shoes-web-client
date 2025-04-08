@@ -23,8 +23,8 @@ const ViewProduct = () => {
         notify("Please log in to add items to the cart.");
         return;
       }
-      console.log(product)
-      // Define the cart data
+   
+ 
       const cartData = {
         userEmail: user?.email,
         name: product?.name,
@@ -122,11 +122,11 @@ const ViewProduct = () => {
 
 
                 </div>
-                {/* {message && <p className="text-green-500 mt-4">{message}</p>} */}
+             
                 <div className=" p-6  text-center">
       <h2 className="text-xl font-semibold mb-6 text-gray-800">We Accept</h2>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center">
-        {/* Visa */}
+      
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"
@@ -134,7 +134,7 @@ const ViewProduct = () => {
             className="w-10 h-8"
           />
         </div>
-        {/* MasterCard */}
+ 
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
@@ -142,7 +142,7 @@ const ViewProduct = () => {
             className="w-10 h-10"
           />
         </div>
-        {/* PayPal */}
+  
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
@@ -150,7 +150,7 @@ const ViewProduct = () => {
             className="w-10 h-8"
           />
         </div>
-        {/* American Express */}
+    
         <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
           <img
             src="https://www.svgrepo.com/show/266068/american-express.svg"

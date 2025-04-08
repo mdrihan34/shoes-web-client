@@ -35,11 +35,11 @@ const MyOrderDash = () => {
   }, [user]);
 
   const handleViewDetails = (order) => {
-    setSelectedOrder(order); // Set the selected order for viewing
+    setSelectedOrder(order); 
   };
 
   const closeModal = () => {
-    setSelectedOrder(null); // Close the modal
+    setSelectedOrder(null); 
   };
 
   return (
@@ -69,7 +69,7 @@ const MyOrderDash = () => {
                     <tr key={order._id} className="border-b hover:bg-gray-50">
                       <td className="px-4 py-3">{order.sellerEmail}</td>
                       <td className="px-4 py-3">
-                        {/* Safely accessing order.items with optional chaining */}
+     
                         {order.items?.map((item, idx) => (
                           <div key={idx}>{item.title}</div>
                         )) || "No products found"}
@@ -122,7 +122,7 @@ const MyOrderDash = () => {
         </div>
       )}
 
-      {/* Modal for Order Details */}
+   
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
@@ -145,7 +145,7 @@ const MyOrderDash = () => {
               <p><strong>Total Price:</strong> ${selectedOrder.totalPrice}</p>
               <p><strong>Ordered At:</strong> {new Date(selectedOrder.createdAt).toLocaleString()}</p>
 
-              {/* Display Ordered Items */}
+           
               <div className="mt-4">
                 <h4 className="text-md font-semibold mb-2">Items:</h4>
                 {selectedOrder.items?.map((item, idx) => (

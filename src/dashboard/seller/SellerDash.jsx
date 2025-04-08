@@ -46,10 +46,10 @@ const SellerDash = () => {
           }, 0);
 
           // Calculate the number of products in confirmed orders
-          const productsInConfirmedOrders = confirmedOrders.reduce((acc, order) => {
-            const itemsCount = Array.isArray(order.items) ? order.items.length : 0;
-            return acc + itemsCount;
-          }, 0);
+          // const productsInConfirmedOrders = confirmedOrders.reduce((acc, order) => {
+          //   const itemsCount = Array.isArray(order.items) ? order.items.length : 0;
+          //   return acc + itemsCount;
+          // }, 0);
           
           setTotalSales(totalSalesAmount);
           setPendingOrders(pendingOrderCount);
@@ -155,7 +155,7 @@ const SellerDash = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="bg-white p-4 rounded-lg shadow-md">
-        <h1 className="text-2xl font-semibold text-gray-800">Welcome Back, {user.name}!</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">Welcome Back!</h1>
         <p className="mt-2 text-gray-600">Manage your sales, orders, and products from here.</p>
       </div>
 

@@ -12,7 +12,7 @@ useEffect(()=>{
   .then((res) => res.json())
   .then((data) => setProduct(data));
 },[])
-console.log(products)
+
   return (
     <div className=" lg:my-20">
         <h3 className="text-3xl text-center font-bold mt-10 lg:mt-20 uppercase">Featured products</h3>

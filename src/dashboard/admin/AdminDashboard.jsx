@@ -27,22 +27,22 @@ const AdminDashboard = () => {
     pendingOrders: 0,
   });
 
-  const [userEmail, setUserEmail] = useState(""); // Add state for user email
+  const [userEmail, setUserEmail] = useState(""); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const usersRes = await fetch("http://localhost:5000/api/users/count");
         const usersData = await usersRes.json();
-        console.log("Users Data:", usersData);
+    
 
         const productsRes = await fetch("http://localhost:5000/api/products/count");
         const productsData = await productsRes.json();
-        console.log("Products Data:", productsData);
+  
 
         const ordersRes = await fetch("http://localhost:5000/all-orders");
         const ordersData = await ordersRes.json();
-        console.log("Orders Data:", ordersData);
+      
 
         const orders = ordersData.data;
 
@@ -55,9 +55,6 @@ const AdminDashboard = () => {
           }
           return acc;
         }, 0);
-
-        console.log("Pending Orders:", pendingOrders);
-        console.log("Total Sales:", totalSales);
 
         setDashboardData({
           totalUsers: usersData.totalUsers,
@@ -75,11 +72,11 @@ const AdminDashboard = () => {
 
   const handleAddAdmin = async () => {
     try {
-      // Make sure the endpoint matches the correct one
-      const usersRes = await fetch("http://localhost:5000/users"); // Use the correct URL
+   
+      const usersRes = await fetch("http://localhost:5000/users");
       const usersData = await usersRes.json();
   
-      // Proceed with finding the user by email as before
+
       const user = usersData.find(u => u.email === userEmail);
   
       if (user) {

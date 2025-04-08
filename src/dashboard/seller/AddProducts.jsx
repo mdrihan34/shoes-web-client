@@ -29,7 +29,7 @@ const AddProducts = () => {
               'email': user.email
             }
           });
-          // console.log(response.data.profilePicture); 
+    
           setProfilePic(response.data.profilePicture);
         } catch (error) {
           console.error("Error fetching profile picture", error);
@@ -63,9 +63,9 @@ const AddProducts = () => {
     if (!setCurrentUser) {
       return <p>Loading...</p>; 
     }
-   console.log(currentUser)
+ 
    const onSubmit = async (data) => {
-    console.log('Form Data:', data); 
+
     const formData = new FormData();
     formData.append("Name", data.productName);
     formData.append("Price", data.productPrice);

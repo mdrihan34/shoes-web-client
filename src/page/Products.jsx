@@ -66,7 +66,7 @@ const Products = () => {
   const totalPages = Math.ceil(totalProducts / itemsPerPage);
 
   return (
-    <div className="container border-2 border-red-600 mt-20 mx-auto">
+    <div className="container  mt-20 mx-auto">
       <ToastContainer />
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
         <h2 className="text-xl font-bold mb-2 sm:mb-0">All Products</h2>

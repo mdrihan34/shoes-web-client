@@ -44,7 +44,7 @@ const Carts = () => {
       });
       if (response.ok) {
         setCarts((prevCarts) => prevCarts.filter((cart) => cart._id !== id));
-        console.log("Product deleted successfully");
+      
       } else {
         console.error("Failed to delete product");
       }
@@ -152,7 +152,7 @@ const Carts = () => {
                     <div className="flex flex-col gap-4">
                       <h3 className="text-base font-bold text-gray-800">{cart.name}</h3>
                       <div className="mt-auto flex items-center gap-3">
-                        {/* Quantity buttons can be implemented here later if needed */}
+          
                       </div>
                     </div>
                   </div>

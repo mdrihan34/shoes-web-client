@@ -59,7 +59,7 @@ const Hero = () => {
         Find the perfect blend of comfort, quality, and design for every occasion.
       </p>
   
-      {/* <Button label='Explore Now' iconURL={arrowRight} /> */}
+     
   
       <div className='flex flex-wrap justify-start items-start border-2 p-4 rounded-xl gap-10 mt-12'>
         {statistics.map((stat, index) => (

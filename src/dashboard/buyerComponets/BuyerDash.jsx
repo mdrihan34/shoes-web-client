@@ -28,7 +28,7 @@ const BuyerDash = () => {
     fetchOrders();
   }, [user]);
 
-  // Filtered Orders
+  
   const pendingOrders = orders.filter(order => order.Status === 'pending');
   const confirmedOrders = orders.filter(order => order.Status === 'Confirmed');
   const cancelledOrders = orders.filter(order => order.Status === 'Confirmed');

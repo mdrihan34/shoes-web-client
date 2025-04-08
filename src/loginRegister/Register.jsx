@@ -1,25 +1,22 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const navigate = useNavigation()
+  const navigate = useNavigate(); 
   const { createUser } = useContext(AuthContext);
-  const { register, handleSubmit,  formState: { errors } } = useForm();
-
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Submitted Data:", data);
     const email = data.email;
     const password = data.password;
     createUser(email, password);
     const role = data.role;
     const name = data.name;
-    const profilePicture = data.profilePicture[0]; 
-
+    const profilePicture = data.profilePicture[0];
 
     const formData = new FormData();
     formData.append("email", email);
@@ -31,14 +28,28 @@ const Register = () => {
     try {
       const response = await axios.post("http://localhost:5000/register", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", 
+          "Content-Type": "multipart/form-data",
         },
       });
-      alert(response.data.message);
-      navigate('/')
+      
+    
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful',
+        text: response.data.message,
+      });
+
+      navigate('/');
+
     } catch (error) {
-      console.error("Error:", error.response?.data?.message || "Something went wrong");
-      alert("Failed to register user. Please try again.");
+    
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: error.response?.data?.message || 'Something went wrong. Please try again.',
+      });
+
+      navigate('/');
     }
   };
 
@@ -61,7 +72,7 @@ const Register = () => {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Email */}
+              
               <label htmlFor="email" className="text-sm text-gray-700">Email Address</label>
               <input
                 {...register("email", {
@@ -73,12 +84,12 @@ const Register = () => {
                 placeholder="Enter your email"
               />
               {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+
+              
               <label htmlFor="name" className="text-sm text-gray-700">Name:</label>
               <input
                 {...register("name", {
                   required: "Name is required",
-               
-             
                 })}
                 type="text"
                 className="block w-full rounded border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black"
@@ -86,7 +97,7 @@ const Register = () => {
               />
               {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
 
-              {/* File Upload */}
+            
               <label htmlFor="profilePicture" className="text-sm text-gray-700">Profile Picture</label>
               <input
                 {...register("profilePicture", { required: "Profile picture is required" })}
@@ -95,7 +106,7 @@ const Register = () => {
               />
               {errors.profilePicture && <p className="text-red-500 text-sm">{errors.profilePicture.message}</p>}
 
-              {/* Role */}
+              
               <label htmlFor="role" className="text-sm text-gray-700">Role</label>
               <select
                 {...register("role", { required: "Role is required" })}
@@ -107,7 +118,6 @@ const Register = () => {
               </select>
               {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
 
-              {/* Password */}
               <label htmlFor="password" className="text-sm text-gray-700">Password</label>
               <input
                 {...register("password", {

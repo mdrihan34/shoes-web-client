@@ -8,7 +8,7 @@ const OrderOverview = () => {
       const response = await fetch("http://localhost:5000/all-orders");
       const data = await response.json();
 
-      console.log("Fetched Orders:", data);
+
 
       if (Array.isArray(data)) {
         setOrders(data);

@@ -128,7 +128,7 @@ const ManageProducts = () => {
   if (loading) {
     return <p>Loading...</p>;
   }
- console.log(user)
+
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold text-gray-800">Manage Products</h2>

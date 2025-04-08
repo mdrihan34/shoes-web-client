@@ -48,8 +48,7 @@ const PrivateRoute = ({ allowedRoles, children }) => {
   }
 
   if (!currentUser || !allowedRoles.includes(currentUser.role)) {
-    console.log("Allowed Roles:", allowedRoles);
-    console.log("Current User Role:", currentUser?.role); 
+ 
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
         <div className="text-center">

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { HiMenu, HiX } from "react-icons/hi";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { MdDashboard, MdManageSearch, MdOutlineFavoriteBorder } from "react-icons/md";
 import { FaLuggageCart } from "react-icons/fa";
 import { BsCart } from "react-icons/bs";
@@ -15,7 +15,7 @@ const DashSideBar = () => {
   const axiosPublic = useAxiosPublic();
   const {user , logOut} = useContext(AuthContext)
   const [profilePic, setProfilePic] = useState("");
-
+  const navigation = useNavigate()
   useEffect(() => {
     const fetchProfilePic = async () => {
      
@@ -26,7 +26,7 @@ const DashSideBar = () => {
             'email': user.email
           }
         });
-        // console.log(response.data.profilePicture); 
+       
         setProfilePic(response.data.profilePicture);
       } catch (error) {
         console.error("Error fetching profile picture", error);
@@ -60,7 +60,14 @@ const DashSideBar = () => {
   if (!setCurrentUser) {
     return <p>Loading...</p>; 
   }
-    console.log(currentUser.role)
+  
+
+    const handleLogOut = ()=>{
+    logOut()
+    if(logOut){
+     return navigation('/')
+    }
+    }
   return (
     <div className="flex">
     {/* Sidebar */}
@@ -124,14 +131,7 @@ const DashSideBar = () => {
           </NavLink>
         </li>
       
-        <li>
-          <NavLink
-            to="/seller-dashboard" 
-            className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-          >
-            <span>Account Settings</span>
-          </NavLink>
-        </li>
+        
       </div>
         
       )}
@@ -225,7 +225,7 @@ const DashSideBar = () => {
       <li>
       <button
                 className="btn uppercase w-full btn-outline btn-primary  py-2 hover:bg-secondary hover:text-white"
-                onClick={logOut}
+                onClick={handleLogOut}
             >
                 LogOut
             </button>

@@ -18,8 +18,8 @@ const Login = () => {
     const email = data.email;
     const password = data.password;
     try {
-      await login(email, password); // Login first
-      navigate(from, { replace: true }); // Then navigate
+      await login(email, password); 
+      navigate(from, { replace: true }); 
     } catch (error) {
       console.error("Login failed:", error);
     }

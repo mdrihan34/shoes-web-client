@@ -9,14 +9,14 @@ const ManageSellers = () => {
   const [pendingSellers, setPendingSellers] = useState([]);
   const axiosPublic = useAxiosPublic();
 
-  // Fetch all users and filter by roles (Seller or Pending)
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axiosPublic.get("/users"); 
         const users = response.data;
 
-        // Filter Sellers and Pending users
+    
         const filteredSellers = users.filter((user) => user.role === "Seller");
         const filteredPending = users.filter((user) => user.role === "Pending");
 
@@ -33,7 +33,7 @@ const ManageSellers = () => {
 
   const updateUserRole = async (id, email) => {
     try {
-      await axiosPublic.put(`/users/${id}`, { role: "Seller" }); // Update user role API
+      await axiosPublic.put(`/users/${id}`, { role: "Seller" }); 
 
 
       const updatedUser = pendingSellers.find((user) => user._id === id);
@@ -49,7 +49,7 @@ const ManageSellers = () => {
     }
   };
 
-  // Delete a user
+
   const deleteUser = async (id, email) => {
     const confirmDelete = await Swal.fire({
       title: "Are you sure?",

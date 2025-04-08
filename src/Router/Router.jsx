@@ -21,14 +21,11 @@ import ManageSellers from "../dashboard/admin/ManageSellers";
 import PendingApproval from "../page/PendingApproval";
 import OrderOverview from "../dashboard/admin/OrderOverview";
 
-// import Mains from "../Mains";
-// // import Home from "../Componets/home/Home";
-
 export const router = createBrowserRouter([
   {
     path: "/",
-    element:<Mains></Mains>,
-    children:[
+    element: <Mains></Mains>,
+    children: [
       {
         path: '/',
         element: <Home></Home>
@@ -44,80 +41,109 @@ export const router = createBrowserRouter([
       {
         path: '/view-product/:id',
         element: <ViewProduct></ViewProduct>,
-     
-       
       },
       {
         path: '/products',
         element: <Products></Products>,
-     
-       
       },
       {
         path: '/about',
         element: <AboutSection></AboutSection>,
-     
-       
       }
-
     ]
   },
   {
     path: "/dashboard",
     element: <Dashboard></Dashboard>,
-   children: [
-    {
-      path: "/dashboard/Buyer",
-      element: <BuyerDash></BuyerDash>
-    },
-    {
-      path: "/dashboard/my-order",
-      element: <MyOrderDash></MyOrderDash>
-    },
-
-    {
-      path: "/dashboard/Seller",
-      element: <SellerDash></SellerDash>
-    },
-    {
-      path: "/dashboard/add-product",
-      element: <AddProducts></AddProducts>
-    },
-    {
-      path: "/dashboard/ManageProducts",
-
-      element: (
-        <PrivateRoute allowedRoles={["Seller"]}>
-          <ManageProducts />
-        </PrivateRoute>
-      ),
-    },
-    {
-      path: "/dashboard/ManageOrders",
-      element: <ManageOrders></ManageOrders>
-    },
-    {
-      path: "/dashboard/admin",
-      element: <AdminDashboard></AdminDashboard>
-    },
-    {
-      path: "/dashboard/orders-overview",
-      element: <OrderOverview></OrderOverview>
-    },
-    {
-      path: "/dashboard/Pending",
-      element: <PendingApproval></PendingApproval>
-    },
-    {
-      path: "/dashboard/carts",
-      element: <Carts></Carts>
-    },
-    {
-      path: "/dashboard/manageSeller",
-      element: <ManageSellers></ManageSellers>
-    },
-
-   ]
-
+    children: [
+      {
+        path: "/dashboard/Buyer",
+        element: (
+          <PrivateRoute allowedRoles={["Buyer"]}>
+            <BuyerDash />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/my-order",
+        element: (
+          <PrivateRoute allowedRoles={["Buyer"]}>
+            <MyOrderDash />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/Seller",
+        element: (
+          <PrivateRoute allowedRoles={["Seller"]}>
+            <SellerDash />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-product",
+        element: (
+          <PrivateRoute allowedRoles={["Seller"]}>
+            <AddProducts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/ManageProducts",
+        element: (
+          <PrivateRoute allowedRoles={["Seller"]}>
+            <ManageProducts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/ManageOrders",
+        element: (
+          <PrivateRoute allowedRoles={["Seller"]}>
+            <ManageOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/admin",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+            <AdminDashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/orders-overview",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+            <OrderOverview />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/Pending",
+        element: (
+          <PrivateRoute allowedRoles={["Pending"]}>
+            <PendingApproval />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/carts",
+        element: (
+          <PrivateRoute allowedRoles={["Buyer"]}>
+            <Carts />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/manageSeller",
+        element: (
+          <PrivateRoute allowedRoles={["admin"]}>
+            <ManageSellers />
+          </PrivateRoute>
+        ),
+      },
+    ]
   },
 ]);
