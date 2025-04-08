@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react"
-import ProductCard from "../../page/productCard"
+// import ProductCard from '../../../src/page/ProductCard'
+import ProductCard from "../../page/ProductCard"
 import { HiArrowNarrowRight } from "react-icons/hi"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
